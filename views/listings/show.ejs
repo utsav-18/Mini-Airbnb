@@ -1,26 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
-</head>
-<body>
-    <h3>Listing Details </h3>
-    <ul>
-        <li><%= listing.title %></li>
-        <li><%= listing.description %></li>
-        <li>&#8377 <%= listing.price.toLocaleString("en-IN") %></li>  <!-- formated in INR and separated by comas -->
-        <li><%= listing.location %></li>
-        <li><%= listing.country %></li>
-        <br>
-        <a href="/listings/<%=listing._id%>/edit">Edit This Listing</a>
-        <br><br>
-        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-            <button>Delete This Listing</button>
+<% layout("layouts/boilerplate") %>
+
+<div class="row">
+  <div class="col-8 offset-2"> <br><br>
+
+    <h3 class="mb-4 text-center">Listing Details</h3>
+
+    <div class="card shadow-sm p-4">
+
+      <h4 class="card-title mb-3"><%= listing.title %></h4>
+
+      
+      <% if (listing.image) { %>
+        <img 
+          src="<%= listing.image %>" 
+          alt="<%= listing.title %>" 
+          class="img-fluid rounded mt-3"
+          style="max-height: 350px; object-fit: cover;"
+        />
+      <% } %>
+
+      <p class="card-text mt-2"><strong>Description:</strong> <%= listing.description %></p>
+      <p class="card-text"><strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %></p>
+      <p class="card-text"><strong>Location:</strong> <%= listing.location %></p>
+      <p class="card-text"><strong>Country:</strong> <%= listing.country %></p>
+
+
+      <div class="mt-4 d-flex gap-2">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit Listing</a>
+
+        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" onsubmit="return confirm('Are you sure you want to delete this listing?');">
+          <button class="btn btn-danger">Delete Listing</button>
         </form>
 
-    </ul>
-</body>
-</html>
+        <a href="/listings" class="btn btn-secondary">Back to Listings</a>
+      </div>
 
+    </div>
+
+  </div>
+</div>
