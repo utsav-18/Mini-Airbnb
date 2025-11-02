@@ -29,9 +29,9 @@ app.engine("ejs", ejsMAte);
 app.use(express.static(path.join(__dirname,"/public")));
 
 //root  
-app.get("/" , (req,res)=>{
-    res.send("Welcome");
-})
+// app.get("/" , (req,res)=>{
+//     res.send("Welcome");
+// })
 
 //Listing
 // app.get("/testListing", async (req,res) =>{
@@ -50,7 +50,7 @@ app.get("/" , (req,res)=>{
 
 
 
-//Index Route
+//Index Route converted into root route
 app.get("/listings", async (req,res)=>{
     const allListings = await Listing.find({});
     res.render("listings/index.ejs",{allListings});
@@ -100,5 +100,5 @@ app.get("/listings/:id", async (req,res)=>{
 
 
 app.listen(8080, ()=>{
-    console.log("http://localhost:8080");
+    console.log("http://localhost:8080/listings");
 })
