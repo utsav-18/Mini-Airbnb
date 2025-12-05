@@ -88,20 +88,23 @@
             <div class="row g-3">
               <% for (review of listing.reviews) { %>
                 <div class="col-md-6">
-                  <div class="card shadow-sm border-0 h-100">
+                  <div class="card shadow-sm border-0 h-100 ">
                     <div class="card-body">
-                      <h6 class="card-title fw-bold mb-1">
+                      <h6 class="card-title fw-bold mb-1 m-3">
                         John Doe
                       </h6>
 
-                      <p class="card-text text-muted mb-2" style="font-size: 0.9rem;">
+                      <p class="card-text text-muted mb-2 m-3" style="font-size: 0.9rem;">
                         <%= review.comment %>
                       </p>
 
-                      <span class="badge  text-dark">
+                      <span class="badge  text-dark m-3">
                         ⭐ <%= review.rating %>
                       </span>
                     </div>
+                      <form action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE" class="m-3" method="POST">
+                        <button class="btn btn-sm  btn-dark">Delete</button>
+                      </form>
                   </div>
                 </div>
               <% } %>
