@@ -30,15 +30,6 @@ router.get("/new", (req, res) => {
   res.render("listings/new.ejs");
 });
 
-// Show Route
-router.get(
-  "/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
-    res.render("listings/show.ejs", { listing });
-  })
-);
 
 // Create Route
 router.post(
@@ -80,6 +71,16 @@ router.delete(
     let deletedListing = await Listing.findByIdAndDelete(id);
     console.log(deletedListing);
     res.redirect("/listings");
+  })
+);
+
+// Show Route
+router.get(
+  "/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id).populate("reviews");
+    res.render("listings/show.ejs", { listing });
   })
 );
 

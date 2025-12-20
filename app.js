@@ -7,6 +7,7 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const getCookies = require("./routes/cookies.js");
 const { reviewSchema } = require("./schema.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
@@ -30,6 +31,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+app.use("/cookies",getCookies);
 app.use("/listings", listings); // mounts listing routes
 app.use("/listings/:id/reviews", reviews); // mounts review routes (uses :id from parent path)
 
