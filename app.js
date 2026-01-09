@@ -1,4 +1,4 @@
-require("dotenv").config(); // ✅ load env vars
+require("dotenv").config(); // load env vars
 
 const express = require("express");
 const app = express();
@@ -20,12 +20,8 @@ const MONGO_URL = process.env.MONGO_URL;
 
 mongoose
   .connect(MONGO_URL)
-  .then(() => {
-    console.log("Connected to DB");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  .then(() => console.log("Connected to DB"))
+  .catch((err) => console.log(err));
 
 // =======================
 // APP CONFIG
@@ -62,6 +58,13 @@ app.use((req, res, next) => {
 });
 
 // =======================
+// ROOT ROUTE (IMPORTANT)
+// =======================
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
+// =======================
 // ROUTES
 // =======================
 app.use("/cookies", getCookies);
@@ -69,7 +72,7 @@ app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
 
 // =======================
-// ERROR HANDLING
+// ERROR HANDLING (KEEP LAST)
 // =======================
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found!!"));
